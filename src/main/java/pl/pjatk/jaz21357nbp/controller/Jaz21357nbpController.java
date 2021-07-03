@@ -15,8 +15,7 @@ public class Jaz21357nbpController {
     }
     @ApiOperation(value = "calculate average currency rate for the time period",
             response = Double.class,
-            notes = "This method will return average currency rate for the time period or error code with plaintext"
-
+            notes = "This method will return average currency rate for the time period or error code in json"
     )
     @GetMapping("/avg/{currency}/{from}/{to}")
     public ResponseEntity<Double> getAvg(@PathVariable String currency, @PathVariable String from, @PathVariable String to) {
