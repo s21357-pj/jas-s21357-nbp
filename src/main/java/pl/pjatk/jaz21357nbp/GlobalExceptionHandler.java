@@ -12,15 +12,13 @@ import java.net.ConnectException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Upstream Service returned 404.")
     @ExceptionHandler(HttpClientErrorException.NotFound.class)
-    public ResponseEntity<String> handle404(HttpClientErrorException ex) {
-        String bodyOfResponse = ex.getResponseBodyAsString();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(bodyOfResponse);
+    public void handle404(HttpClientErrorException ex) {
     }
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Upstream Service returned 400. Incorrect request")
     @ExceptionHandler(HttpClientErrorException.BadRequest.class)
-    public ResponseEntity<String> handle400(HttpClientErrorException ex) {
-        String bodyOfResponse = ex.getResponseBodyAsString();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyOfResponse);
+    public void handle400(HttpClientErrorException ex) {
     }
     @ResponseStatus(value = HttpStatus.GATEWAY_TIMEOUT, reason = "Upstream Service Not Responding, Try Again")
     @ExceptionHandler(ConnectException.class)
